@@ -7,7 +7,9 @@ CREATE TABLE IF NOT EXISTS users (
     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     name VARCHAR NOT NULL,
     cpf VARCHAR,
-    email VARCHAR
+    email VARCHAR UNIQUE,
+    senha VARCHAR,
+    ie VARCHAR
 );
 
 
