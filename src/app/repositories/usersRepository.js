@@ -1,91 +1,73 @@
-const { v4 } = require('uuid');
+const db = require('../../database');
 
-let users = [
-  {
-    id: v4(),
-    name: 'Rafael Lang',
-    CPF: '000.000.000-00',
-    email: 'rafael.lang9@gmail.com',
-    senha: '1234',
-    inscricaoEstadual: '283331112',
-  },
-  {
-    id: v4(),
-    name: 'Jose silva',
-    CPF: '111.111.111-11',
-    email: 'jose.silva@gmail.com',
-    senha: '1234',
-    inscricaoEstadual: '283331112',
-  },
-];
+// const users = [
+//   {
+//     id: v4(),
+//     name: 'Rafael Lang',
+//     CPF: '000.000.000-00',
+//     email: 'rafael.lang9@gmail.com',
+//     senha: '1234',
+//     inscricaoEstadual: '283331112',
+//   },
+//   {
+//     id: v4(),
+//     name: 'Jose silva',
+//     CPF: '111.111.111-11',
+//     email: 'jose.silva@gmail.com',
+//     senha: '1234',
+//     inscricaoEstadual: '283331112',
+//   },
+// ];
 
 // Responsabilidade do Repository é exclusivamente acessar nossa fonta de dados DataSource
 // Quem trata os erros, de conexao ou outro, é o controller
 class UsersRepository {
-  findAll() {
-    return new Promise((resolve) => {
-      resolve(users);
-    });
+  async findAll() {
+    const rows = await db.query('SELECT * FROM users');
+    return rows;
   }
 
-  findById(id) {
-    return new Promise((resolve) => {
-      const foundUser = users.find((user) => user.id === id);
-      resolve(foundUser);
-    });
+  // TypeError: object is not iterable - verificar se a promise esta com await
+  async findById(id) {
+    const [row] = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    return row;
   }
 
-  findByEmail(email) {
-    return new Promise((resolve) => {
-      const foundEmail = users.find((user) => user.email === email);
-      resolve(foundEmail);
-    });
+  async findByEmail(email) {
+    const [row] = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    return row;
   }
 
-  delete(id) {
-    return new Promise((resolve) => {
-      users = users.filter((user) => user.id !== id);
-      resolve();
-    });
-  }
-
-  create({
+  async create({
     name, cpf, email, senha, ie,
   }) {
-    return new Promise((resolve) => {
-      const newUser = {
-        id: v4(),
-        name,
-        cpf,
-        email,
-        senha,
-        ie,
-      };
+    // row sao todos os registros das tabelas de nosso db. row = linha
+    // quando inserimos daods, inserimos nas linhas (row), pois as colunas sao nossa TABLES
+    const [row] = await db.query(`
+      INSERT INTO users(name, cpf, email, senha, ie)
+      VALUES($1, $2, $3, $4, $5)
+      RETURNING *
+    `, [name, cpf, email, senha, ie]);
 
-      users.push(newUser);
-      resolve(newUser);
-    });
+    return row;
   }
 
-  update(id, {
+  async update(id, {
     name, cpf, email, senha, ie,
   }) {
-    return new Promise((resolve) => {
-      const updatedUser = {
-        id,
-        name,
-        cpf,
-        email,
-        senha,
-        ie,
-      };
+    // Para retornar com os dados preenchidos: RETURNING *
+    const [row] = await db.query(`
+      UPDATE users
+      SET name = $1, cpf = $2, email = $3, senha = $4, ie = $5
+      WHERE id = $6
+      RETURNING *
+    `, [name, cpf, email, senha, ie, id]);
+    return row;
+  }
 
-      users = users.map((user) => (
-        user.id === id ? updatedUser : user
-      ));
-
-      resolve(updatedUser);
-    });
+  async delete(id) {
+    const deleteOp = await db.query('DELETE FROM users WHERE id = $1', [id]);
+    return deleteOp;
   }
 }
 

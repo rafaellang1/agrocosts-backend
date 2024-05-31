@@ -12,13 +12,12 @@ CREATE TABLE IF NOT EXISTS users (
     ie VARCHAR
 );
 
-
 CREATE TABLE IF NOT EXISTS farms (
     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     name VARCHAR NOT NULL,
-    inscription VARCHAR,
-    location VARCHAR,
-    acre VARCHAR
+    ie VARCHAR,
+    size VARCHAR,
+    location VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS products (

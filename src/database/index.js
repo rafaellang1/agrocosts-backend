@@ -10,4 +10,7 @@ const client = new Client({
 
 client.connect();
 
-client.query('SELECT * FROM users').then(console.log);
+exports.query = async (query, values) => {
+  const { rows } = await client.query(query, values);
+  return rows;
+};

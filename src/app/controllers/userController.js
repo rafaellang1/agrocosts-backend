@@ -32,7 +32,6 @@ class UserController {
     }
 
     const userExists = await UsersRepository.findByEmail(email);
-
     if (userExists) {
       return response.status(400).json({ error: 'Este email ja esta cadastrado' });
     }
@@ -61,7 +60,7 @@ class UserController {
 
     const userByEmail = await UsersRepository.findByEmail(email);
     if (userByEmail && userByEmail.id !== id) {
-      return response.status(400).json({ error: 'Este email ja esta cadastrado' });
+      return response.status(400).json({ error: 'Este email ja esta cadastrado!!' });
     }
 
     const user = await UsersRepository.update(id, {
