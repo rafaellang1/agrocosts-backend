@@ -17,20 +17,21 @@ CREATE TABLE IF NOT EXISTS farms (
     name VARCHAR NOT NULL,
     ie VARCHAR,
     size VARCHAR,
-    location VARCHAR
+    location VARCHAR,
+    user_id UUID,
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS products (
     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
-    code VARCHAR,
+    name VARCHAR NOT NULL,
     description VARCHAR,
-    quantity int,
-    unit_value int,
-    total_value int,
-    quantity_acre int,
-    area_id UUID,
-
-    FOREIGN KEY (area_id) REFERENCES farms(id)
+    quantity INT,
+    aplication_area VARCHAR,
+    unit_value INT,
+    total_value INT,
+    farm_id UUID,
+    FOREIGN KEY (farm_id) REFERENCES farms(id)
 );
 
 CREATE TABLE IF NOT EXISTS harvests (

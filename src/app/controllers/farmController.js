@@ -11,7 +11,7 @@ class FarmController {
   // Create
   async store(request, response) {
     const {
-      name, ie, size, location,
+      name, ie, size, location, user_id,
     } = request.body;
 
     if (!name) {
@@ -24,7 +24,7 @@ class FarmController {
     }
 
     const farm = await FarmsRepository.create({
-      name, ie, size, location,
+      name, ie, size, location, user_id,
     });
 
     response.json(farm);
@@ -47,7 +47,7 @@ class FarmController {
   async update(request, response) {
     const { id } = request.params;
     const {
-      name, ie, size, location,
+      name, ie, size, location, user_id,
     } = request.body;
 
     const farmExists = await FarmsRepository.findById(id);
@@ -66,7 +66,7 @@ class FarmController {
     }
 
     const farm = await FarmsRepository.update(id, {
-      name, ie, size, location,
+      name, ie, size, location, user_id,
     });
 
     response.json(farm);

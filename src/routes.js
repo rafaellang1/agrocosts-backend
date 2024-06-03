@@ -2,6 +2,7 @@ const express = require('express');
 
 const UserController = require('./app/controllers/userController');
 const FarmController = require('./app/controllers/farmController');
+const ProductController = require('./app/controllers/productController');
 
 const routes = express.Router();
 
@@ -17,5 +18,11 @@ routes.get('/farms/:id', FarmController.show);
 routes.delete('/farms/:id', FarmController.delete);
 routes.post('/farms', FarmController.store);
 routes.put('/farms/:id', FarmController.update);
+
+routes.get('/products', ProductController.index);
+routes.get('/products/:id', ProductController.show);
+routes.delete('/products/:id', ProductController.delete);
+routes.post('/products', ProductController.store);
+routes.put('/products/:id', ProductController.update);
 
 module.exports = routes;
