@@ -3,6 +3,7 @@ const express = require('express');
 const UserController = require('./app/controllers/userController');
 const FarmController = require('./app/controllers/farmController');
 const ProductController = require('./app/controllers/productController');
+const harvestController = require('./app/controllers/harvestController');
 
 const routes = express.Router();
 
@@ -24,5 +25,11 @@ routes.get('/products/:id', ProductController.show);
 routes.delete('/products/:id', ProductController.delete);
 routes.post('/products', ProductController.store);
 routes.put('/products/:id', ProductController.update);
+
+routes.get('/harvests', harvestController.index);
+routes.get('/harvests/:id', harvestController.show);
+routes.delete('/harvests/:id', harvestController.delete);
+routes.post('/harvests', harvestController.store);
+routes.put('/harvests/:id', harvestController.update);
 
 module.exports = routes;

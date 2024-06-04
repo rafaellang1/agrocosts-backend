@@ -17,7 +17,7 @@ class ProductsRepository {
     const [row] = await db.query(`
       SELECT products.*, farms.name AS farm_name
       FROM products
-      LEFT JOIN products ON farms.id = products.farm_id
+      LEFT JOIN farms ON farms.id = products.farm_id
       WHERE products.id = $1
     `, [id]);
     return row;
@@ -33,6 +33,24 @@ class ProductsRepository {
       RETURNING *
     `, [name, description, quantity, aplication_area, unit_value, total_value, farm_id]);
     return row;
+  }
+
+  async update(id, {
+    name, description, quantity, aplication_area, unit_value, farm_id,
+  }) {
+    const total_value = quantity * unit_value;
+    const [row] = await db.query(`
+      UPDATE products
+      SET name = $1, description = $2, quantity = $3, aplication_area = $4, unit_value = $5, total_value = $6, farm_id = $7
+      WHERE id = $8
+      RETURNING *
+    `, [name, description, quantity, aplication_area, unit_value, total_value, farm_id, id]);
+    return row;
+  }
+
+  async delete(id) {
+    const deleteOp = await db.query('DELETE FROM products WHERE id = $1', [id]);
+    return deleteOp;
   }
 }
 

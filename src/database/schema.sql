@@ -36,19 +36,19 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS harvests (
     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
-    current_harvest VARCHAR,
-    description VARCHAR,
+    name VARCHAR,
+    year VARCHAR,
     start_date DATE,
     end_date DATE
 );
 
-CREATE TABLE IF NOT EXISTS ends_harvests (
-    id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
-    quantity_harvested INT,
-    area_id UUID,
+-- CREATE TABLE IF NOT EXISTS ends_harvests (
+--     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+--     quantity_harvested INT,
+--     area_id UUID,
 
-    FOREIGN KEY (area_id) REFERENCES farms(id)
-);
+--     FOREIGN KEY (area_id) REFERENCES farms(id)
+-- );
 
 CREATE TABLE IF NOT EXISTS reports (
     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
