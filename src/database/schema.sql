@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS products (
     unit_value INT,
     total_value INT,
     farm_id UUID,
-    FOREIGN KEY (farm_id) REFERENCES farms(id)
+    harvest_id UUID,
+    FOREIGN KEY (farm_id) REFERENCES farms(id),
+    FOREIGN KEY (harvest_id) REFERENCES harvests(id)
 );
 
 CREATE TABLE IF NOT EXISTS harvests (

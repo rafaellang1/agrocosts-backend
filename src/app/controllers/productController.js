@@ -11,7 +11,7 @@ class ProductController {
   // Create
   async store(request, response) {
     const {
-      name, description, quantity, aplication_area, unit_value, total_value, farm_id,
+      name, description, quantity, aplication_area, unit_value, total_value, farm_id, harvest_id,
     } = request.body;
 
     if (!name) {
@@ -19,7 +19,7 @@ class ProductController {
     }
 
     const product = await ProductsRepository.create({
-      name, description, quantity, aplication_area, unit_value, total_value, farm_id,
+      name, description, quantity, aplication_area, unit_value, total_value, farm_id, harvest_id,
     });
 
     response.json(product);
@@ -41,7 +41,7 @@ class ProductController {
   async update(request, response) {
     const { id } = request.params;
     const {
-      name, description, quantity, aplication_area, unit_value, total_value, farm_id,
+      name, description, quantity, aplication_area, unit_value, total_value, farm_id, harvest_id,
     } = request.body;
 
     const productExists = await ProductsRepository.findById(id);
@@ -51,7 +51,7 @@ class ProductController {
     }
 
     const product = await ProductsRepository.update(id, {
-      name, description, quantity, aplication_area, unit_value, total_value, farm_id,
+      name, description, quantity, aplication_area, unit_value, total_value, farm_id, harvest_id,
     });
 
     response.json(product);
