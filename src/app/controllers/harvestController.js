@@ -22,19 +22,15 @@ class HarvestController {
 
   async store(request, response) {
     const {
-      name, year, start_date, end_date,
+      name, start_date, end_date,
     } = request.body;
 
     if (!name) {
       return response.status(400).json({ error: 'Preenchimento do nome da safra é obrigatório' });
     }
 
-    if (!year) {
-      return response.status(400).json({ error: 'Preenchimento do ano é obrigatório' });
-    }
-
     const harvest = await HarvestsRepository.create({
-      name, year, start_date, end_date,
+      name, start_date, end_date,
     });
 
     response.json(harvest);
@@ -43,7 +39,7 @@ class HarvestController {
   async update(request, response) {
     const { id } = request.params;
     const {
-      name, year, start_date, end_date,
+      name, start_date, end_date,
     } = request.body;
 
     const harvestExists = await HarvestsRepository.findById(id);
@@ -52,7 +48,7 @@ class HarvestController {
     }
 
     const harvest = await HarvestsRepository.update(id, {
-      name, year, start_date, end_date,
+      name, start_date, end_date,
     });
 
     response.json(harvest);

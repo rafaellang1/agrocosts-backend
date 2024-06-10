@@ -9,6 +9,7 @@ const app = express();
 // se nao ficar travado, segue para o segundo.
 
 app.use(express.json());
+// Habilitar o CORS para poder conectar a Fetch no frontend com a porta 3000 a porta 3001 do backend
 app.use(cors); // CORS
 app.use(routes);
 

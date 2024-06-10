@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS products (
 CREATE TABLE IF NOT EXISTS harvests (
     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     name VARCHAR,
-    year VARCHAR,
     start_date DATE,
     end_date DATE
 );
