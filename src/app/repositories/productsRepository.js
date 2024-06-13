@@ -5,7 +5,7 @@ class ProductsRepository {
     const rows = await db.query(`
       SELECT products.*,
       farms.name AS farm_name,
-      harvests.name || ' ' || harvests.year AS current_harvest
+      harvests.name AS current_harvest
       FROM products
       LEFT JOIN farms ON farms.id = products.farm_id
       LEFT JOIN harvests ON harvests.id = products.harvest_id
@@ -20,7 +20,7 @@ class ProductsRepository {
     const [row] = await db.query(`
       SELECT products.*,
       farms.name AS farm_name,
-      harvests.name || ' ' || harvests.year AS current_harvest
+      harvests.name AS current_harvest
       FROM products
       LEFT JOIN farms ON farms.id = products.farm_id
       LEFT JOIN harvests ON harvests.id = products.harvest_id

@@ -13,7 +13,7 @@ class HarvestController {
   }
 
   async create({
-    name, year, start_date, end_date,
+    name, start_date, end_date,
   }) {
     const [row] = await db.query(`
       INSERT INTO harvests(name, start_date, end_date)
