@@ -7,6 +7,9 @@ const harvestController = require('./app/controllers/harvestController');
 
 const routes = express.Router();
 
+// login
+routes.post('/login', UserController.login);
+
 // obtendo informaçoes: get
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);

@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS farms (
     location VARCHAR,
     user_id UUID,
     FOREIGN KEY(user_id) REFERENCES users(id)
+    ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS products (
@@ -29,10 +30,11 @@ CREATE TABLE IF NOT EXISTS products (
     quantity INT,
     aplication_area VARCHAR,
     unit_value INT,
-    total_value INT,
+    total_value DECIMAL,
     farm_id UUID,
     harvest_id UUID,
-    FOREIGN KEY (farm_id) REFERENCES farms(id),
+    FOREIGN KEY (farm_id) REFERENCES farms(id)
+    ON DELETE SET NULL,
     FOREIGN KEY (harvest_id) REFERENCES harvests(id)
 );
 
@@ -42,6 +44,9 @@ CREATE TABLE IF NOT EXISTS harvests (
     start_date DATE,
     end_date DATE
 );
+
+-- Nao existe a necessidade dessa tabela, ja que ao cadastar a safra o ususario seleciona o inicio e fim
+-- Assim, evitamos consumo desnecessario no backend e no DB
 
 -- CREATE TABLE IF NOT EXISTS ends_harvests (
 --     id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),

@@ -1,6 +1,23 @@
+const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
 const UsersRepository = require('../repositories/usersRepository');
 
 class UserController {
+  // Request de login
+  async login(request, response) {
+    const { email, senha } = request.body;
+
+    const user = await UsersRepository.findByEmail(email);
+
+    if (!user || user.senha !== senha) {
+      return response.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1H' });
+
+    response.json({ token });
+  }
+
   async index(request, response) {
     // utilizamos o methodo async await pq a consulta ao DB é uma op bloqueante, nao simultanea
     const users = await UsersRepository.findAll();
