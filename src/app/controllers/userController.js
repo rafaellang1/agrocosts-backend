@@ -10,7 +10,7 @@ class UserController {
     const user = await UsersRepository.findByEmail(email);
 
     if (!user || user.senha !== senha) {
-      return response.status(401).json({ error: 'Invalid credentials' });
+      return response.status(401).json({ error: 'Credenciais inválidas' });
     }
 
     const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1H' });
@@ -46,6 +46,14 @@ class UserController {
 
     if (!name) {
       return response.status(400).json({ error: 'Preenchimento do nome é obrigatório' });
+    }
+
+    if (!ie) {
+      return response.status(400).json({ error: 'Preenchimento da Inscrição estadual é obrigatório' });
+    }
+
+    if (!email) {
+      return response.status(400).json({ error: 'Preenchimento da Email é obrigatório' });
     }
 
     const userExists = await UsersRepository.findByEmail(email);
