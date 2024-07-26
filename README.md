@@ -31,11 +31,11 @@ yarn start
 <summary>Visualize as imagens do projeto</summary>
 <br>
 <strong></strong>
-<img src="https://github.com/rafaellang1/agrocosts-backend/blob/main/.github/create-users.png" alt="create-users">
+<img src="https://github.com/rafaellang1/agrocosts-backend/blob/master/.github/create-users.png" alt="create-users">
 
 <br>
 <Strong>Relatórios</strong>
-<img src="https://github.com/rafaellang1/agrocosts-backend/blob/main/.github/update-farms.png" alt="update-farms">
+<img src="https://github.com/rafaellang1/agrocosts-backend/blob/master/.github/update-farms.png" alt="update-farms">
 </details>
 
 
